@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foo-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: foo
+  template:
+    metadata:
+      labels:
+        app: foo
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: foo-app
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+        image: registry.k8s.io/e2e-test-images/agnhost:2.39
+        command:
+        - /agnhost
+        - netexec
+        - --http-port
+        - "8080"
+        ports:
+        - containerPort: 8080
