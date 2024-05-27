@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: foo-service
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    app: foo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
